@@ -1,17 +1,16 @@
-cmake_minimum_required(VERSION 3.22.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10)
 
-project(display VERSION 0.1.0 LANGUAGES CXX)
-
-set(CMAKE_CXX_STANDARD 17)
-
-find_package(freeglut REQUIRED)
-find_package(OpenGL REQUIRED)
-
-
+project(display)
 add_executable(display main.cpp
         Window.h
         Core.h
         Drawable.h
         Components/Square.h)
+find_package(OpenGL REQUIRED COMPONENTS OpenGL)
+find_package(GLUT REQUIRED)
 
-target_link_libraries(display PRIVATE freeglut::freeglut)
+add_dependencies(display OpenGL::OpenGL)
+include_directories(${GLUT_INCLUDE_DIRS} )
+
+
+target_link_libraries(display OpenGL::OpenGL GLUT::GLUT)

@@ -5,6 +5,8 @@
 #ifndef DISPLAY_CORE_H
 #define DISPLAY_CORE_H
 
+#include <vector>
+#include <memory>
 #include "Window.h"
 #include "Drawable.h"
 

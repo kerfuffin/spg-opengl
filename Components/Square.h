@@ -5,7 +5,7 @@
 #ifndef DISPLAY_SQUARE_H
 #define DISPLAY_SQUARE_H
 
-#include <OpenGL/gl.h>
+#include <GL/gl.h>
 #include "../Drawable.h"
 
 namespace graphics {

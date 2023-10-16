@@ -32,7 +32,7 @@
 #include <iostream>
 #include <string>
 
-#include <OpenGL/gl.h>
+#include <GL/freeglut.h>
 
 #include "Core.h"
 #include "Components/Square.h"
@@ -59,6 +59,6 @@ int main(int argc, char** argv) {
             );
 
     glutDisplayFunc(renderPipeline);
-    glutMainLoop()
+    glutMainLoop();
     return 0;
 }

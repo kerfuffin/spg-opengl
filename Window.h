@@ -5,8 +5,8 @@
 #ifndef DISPLAY_WINDOW_H
 #define DISPLAY_WINDOW_H
 
-#include <GLUT/glut.h>
-#include <OpenGL/gl.h>
+#include <GL/glut.h>
+#include <GL/gl.h>
 
 namespace graphics {
 
