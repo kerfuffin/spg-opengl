@@ -35,7 +35,6 @@
 #include <GL/freeglut.h>
 
 #include "Core.h"
-#include "Components/Square.h"
 
 using namespace std;
 
@@ -52,13 +51,6 @@ int main(int argc, char** argv) {
     Core core;
     coreGlobal = &core;
 
-    graphics::Square sq(0, 0, 0.5, 0.5);
-
-    core.add_drawable(
-            (graphics::Drawable*)(&sq)
-            );
-
     glutDisplayFunc(renderPipeline);
-    glutMainLoop();
-    return 0;
+    core.run();
 }

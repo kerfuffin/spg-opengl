@@ -17,7 +17,7 @@ namespace graphics {
         static constexpr float ASPECT_RATIO = 320.0f / 480.0f;
 
         Window() {
-            glutInitDisplayMode(GLUT_SINGLE);
+            glutInitDisplayMode (GLUT_DOUBLE);
             glutInitWindowSize(WIDTH, HEIGHT);
             glutInitWindowPosition(100, 100);
             glutCreateWindow("display");
