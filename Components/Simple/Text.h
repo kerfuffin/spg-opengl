@@ -8,9 +8,9 @@
 #include <string>
 #include <GL/gl.h>
 #include <GL/freeglut_std.h>
-#include "../Abstracts/Drawable.h"
-#include "../Structures/Vec2.h"
-#include "../Structures/Color.h"
+#include "../../Abstracts/Drawable.h"
+#include "../../Structures/Vec2.h"
+#include "../../Structures/Color.h"
 
 namespace graphics {
 

@@ -21,7 +21,6 @@ namespace graphics {
             glutInitWindowSize(WIDTH, HEIGHT);
             glutInitWindowPosition(100, 100);
             glutCreateWindow("display");
-            std::cout << "robie gluta";
         }
 
         ~Window() = default;

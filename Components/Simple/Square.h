@@ -6,10 +6,10 @@
 #define DISPLAY_SQUARE_H
 
 #include <GL/gl.h>
-#include "../Abstracts/Drawable.h"
-#include "../Structures/Color.h"
-#include "../Structures/Vec2.h"
-#include "../Window.h"
+#include "../../Abstracts/Drawable.h"
+#include "../../Structures/Color.h"
+#include "../../Structures/Vec2.h"
+#include "../../Window.h"
 
 namespace graphics {
     class Square : public Drawable {
