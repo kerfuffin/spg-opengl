@@ -16,7 +16,13 @@ namespace graphics {
         static constexpr int HEIGHT = 320;
         static constexpr float ASPECT_RATIO = 320.0f / 480.0f;
 
+        static bool* key_states;
+
         Window() {
+            for (int i = 0; i < 256; i++) {
+                key_states[i] = false;
+            }
+
             glutInitDisplayMode (GLUT_DOUBLE);
             glutInitWindowSize(WIDTH, HEIGHT);
             glutInitWindowPosition(100, 100);
@@ -26,6 +32,7 @@ namespace graphics {
         ~Window() = default;
     };
 
+    bool* graphics::Window::key_states = nullptr;
 } // graphics
 
 #endif //DISPLAY_WINDOW_H
