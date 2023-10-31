@@ -13,7 +13,8 @@ add_executable(display main.cpp
         Abstracts/View.h
         Components/Simple/Text.h
         Components/Complex/Waveform.h
-        Components/Simple/Rectangle.h)
+        Components/Simple/Rectangle.h
+        Components/Complex/Button.h)
 find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 find_package(GLUT REQUIRED)
 

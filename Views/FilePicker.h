@@ -8,12 +8,14 @@
 #include <memory>
 #include <vector>
 #include <cmath>
+#include <functional>
 #include "../Abstracts/Drawable.h"
 #include "../Components/Simple/Square.h"
 #include "../Structures/Color.h"
 #include "../Structures/Vec2.h"
 #include "../Abstracts/View.h"
 #include "../Components/Complex/Waveform.h"
+#include "../Components/Complex/Button.h"
 
 using namespace graphics;
 
@@ -25,45 +27,32 @@ public:
 
 private:
     std::vector<std::shared_ptr<Drawable>> _dw;
-    Waveform* waveformL;
-    Waveform* waveformR;
+    void print_button();
 };
 
 FilePicker::FilePicker() {
-    waveformL = new Waveform(
-            {3, 2, -3, 4, 5, -4},
-            Color(1, 0, 0),
+    Button button = Button(
             Vec2(0, 0),
-            4
+            50, 20,
+            Color(0.3, 0.3, 0.3),
+            Text("Button", Vec2(0, 0), Color(0, 0, 0)),
+            std::bind(&FilePicker::print_button, this)
             );
-    _dw.push_back(std::shared_ptr<Drawable>(waveformL));
-    waveformR = new Waveform(
-            {-3, -2, 3, -4, -5, 4},
-            Color(1, 0, 0),
-            Vec2(0, 0),
-            4
-    );
-    _dw.push_back(std::shared_ptr<Drawable>(waveformR));
+    _dw.push_back(std::make_shared<Button>(button));
 }
 
 void FilePicker::update() {
-    auto dataL = waveformL->get_data();
-    auto dataR = waveformR->get_data();
 
-    // times sin of 2pi * 440Hz * time
-    for (int i = 0; i < dataL.size(); i++) {
-        dataL[i] = static_cast<float>(sin(2 * M_PI * 440 * dataL[i] / 441) * 5);
-        dataR[i] = static_cast<float>(sin(2 * M_PI * 440 * dataL[i] / 441) * 5);
-    }
-
-    waveformL->set_data(dataL);
-    waveformR->set_data(dataR);
 }
 
 void FilePicker::draw() {
     for (auto& dw : _dw) {
         dw->draw();
     }
+}
+
+void FilePicker::print_button() {
+    std::cout << "Button pressed" << std::endl;
 }
 
 #endif //DISPLAY_FILEPICKER_H
