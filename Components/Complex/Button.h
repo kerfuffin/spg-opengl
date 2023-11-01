@@ -6,6 +6,7 @@
 #define DISPLAY_BUTTON_H
 
 #include <functional>
+#include <utility>
 #include <GL/gl.h>
 #include "../../Abstracts/Drawable.h"
 #include "../../Structures/Color.h"
@@ -32,8 +33,9 @@ namespace graphics {
 
     Button::Button(Vec2 pos, float width, float height, Color color, Text text, std::function<void()> callback) {
         this->rectangle = Rectangle(pos, width, height, color);
-        this->text = text;
-        this->callback = callback;
+        this->text = std::move(text);
+        this->text.center_in(pos, Vec2(pos.x + width, pos.y + height));
+        this->callback = std::move(callback);
         this->color = color;
     }
 
