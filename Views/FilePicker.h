@@ -23,26 +23,37 @@ class FilePicker : public View {
 public:
     FilePicker();
     void draw() override;
-    void update();
+    void update() override;
 
 private:
     std::vector<std::shared_ptr<Drawable>> _dw;
+    std::vector<std::shared_ptr<Button>> _buttons;
+    int angle = 0;
+    int angle_increment = 1;
     void print_button();
 };
 
 FilePicker::FilePicker() {
-    Button button = Button(
-            Vec2(0, 0),
-            50, 20,
-            Color(0.3, 0.3, 0.3),
-            Text("Button", Vec2(0, 0), Color(0, 0, 0)),
-            std::bind(&FilePicker::print_button, this)
-            );
-    _dw.push_back(std::make_shared<Button>(button));
+    auto button = std::make_shared<Button>(
+            std::make_unique<Vec2>(0, 0),
+            0.7, 0.2,
+            std::make_unique<Color>(0.3, 0.3, 0.3),
+            std::make_unique<Text>("Button", std::make_unique<Vec2>(0.0, 0.0), std::make_unique<Color>(1, 1, 1)),
+            [this] { print_button(); }
+        );
+    _dw.push_back(button);
+    _buttons.push_back(button);
 }
 
 void FilePicker::update() {
+    angle = (angle + angle_increment) % 360;
+    auto& button = _buttons.front();
+    auto new_pos = std::make_unique<Vec2>(
+             cos(angle * M_PI / 180),
+             sin(angle * M_PI / 180)
+            );
 
+    button->set_position(std::move(new_pos));
 }
 
 void FilePicker::draw() {

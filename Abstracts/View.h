@@ -13,8 +13,6 @@ namespace graphics {
     class View : public Drawable {
     public:
         View() = default;
-        virtual ~View() = default;
-        virtual void draw() = 0;
         virtual void update() = 0;
     };
 

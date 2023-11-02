@@ -36,10 +36,6 @@ void Core::draw() {
     for (auto& dw : _dw) {
         dw->draw();
     }
-//    // read center pixel color
-//    float pixel[3];
-//    glReadPixels(480/2, 320/2, 1, 1, GL_RGB, GL_FLOAT, pixel);
-//    std::cout << pixel[0] << " " << pixel[1] << " " << pixel[2] << std::endl;
 }
 
 void Core::add_drawable(graphics::View* dw) {
