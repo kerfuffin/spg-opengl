@@ -25,12 +25,13 @@ namespace graphics {
 
         void set_focused(bool focused);
         void set_position(std::unique_ptr<Vec2> pos);
+        const std::unique_ptr<Vec2>& get_position();
     private:
         std::unique_ptr<Rectangle> rectangle;
         std::unique_ptr<Text> text;
         std::function<void()> callback;
         std::unique_ptr<Color> color;
-        bool is_focused = true;
+        bool is_focused = false;
     };
 
     Button::Button(std::unique_ptr<Vec2>&& pos, float width, float height, std::unique_ptr<Color> color, std::unique_ptr<Text> text, std::function<void()> callback) {
@@ -45,6 +46,10 @@ namespace graphics {
         this->is_focused = focused;
     }
 
+    const std::unique_ptr<Vec2>& Button::get_position() {
+        return this->rectangle->get_position();
+    }
+
     void Button::set_position(std::unique_ptr<Vec2> pos) {
         this->text->center_in(pos, std::make_unique<Vec2>(
                 pos->x + this->rectangle->get_width(),
@@ -55,12 +60,14 @@ namespace graphics {
 
     void Button::draw() {
         if (is_focused) {
-            rectangle->set_color(std::make_unique<Color>(0.4, 0.4, 0.5));
+            rectangle->set_color(std::make_unique<Color>(0x42/255.f, 0x42/255.f, 0xdc/255.f));
             if (Window::key_states[13]) {
                 callback();
             }
         } else {
-            rectangle->set_color(color);
+            rectangle->set_color(
+                    std::make_unique<Color>(0x42/255.f, 0x42/255.f, 0x42/255.f)
+                    );
         }
         rectangle->draw();
         text->draw();
