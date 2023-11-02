@@ -12,7 +12,6 @@ add_executable(display main.cpp
         Views/FilePicker.h
         Abstracts/View.h
         Components/Simple/Text.h
-        Components/Complex/Waveform.h
         Components/Simple/Rectangle.h
         Components/Complex/Button.h)
 find_package(OpenGL REQUIRED COMPONENTS OpenGL)

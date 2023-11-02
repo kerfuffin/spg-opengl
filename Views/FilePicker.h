@@ -14,7 +14,6 @@
 #include "../Structures/Color.h"
 #include "../Structures/Vec2.h"
 #include "../Abstracts/View.h"
-#include "../Components/Complex/Waveform.h"
 #include "../Components/Complex/Button.h"
 
 using namespace graphics;
@@ -28,8 +27,8 @@ public:
 private:
     std::vector<std::shared_ptr<Drawable>> _dw;
     std::vector<std::shared_ptr<Button>> _buttons;
-    int angle = 0;
-    int angle_increment = 1;
+    float angle = 0;
+    float angle_increment = 0.01;
     void print_button();
 };
 
@@ -46,11 +45,11 @@ FilePicker::FilePicker() {
 }
 
 void FilePicker::update() {
-    angle = (angle + angle_increment) % 360;
+    angle = (angle + angle_increment);
     auto& button = _buttons.front();
     auto new_pos = std::make_unique<Vec2>(
-             cos(angle * M_PI / 180),
-             sin(angle * M_PI / 180)
+             -1.5 - 0.35 + cos( angle * M_PI / 180),
+             -0.1 + sin(angle * M_PI / 180) * 1.5
             );
 
     button->set_position(std::move(new_pos));

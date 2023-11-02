@@ -36,6 +36,7 @@ void Core::draw() {
     for (auto& dw : _dw) {
         dw->draw();
     }
+    glutSwapBuffers();
 }
 
 void Core::add_drawable(graphics::View* dw) {
@@ -56,14 +57,24 @@ void Core::update() {
     }
 }
 
+namespace{
+    std::function<void(int)> fn;
+    void callback(int val) {
+        fn(0);
+        glutTimerFunc(1000/60, ::callback, 0);
+    }
+}
+
 [[noreturn]] void Core::run() {
     auto* filePicker = new FilePicker();
     add_drawable(filePicker);
-
-    while (true) {
+    ::fn = [this](int val){
         update();
         draw();
-        glutSwapBuffers();
+    };
+    glutTimerFunc(1000/60, ::callback, 0);
+
+    while (true) {
         glutMainLoopEvent();
     }
 
