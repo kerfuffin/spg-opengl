@@ -21,7 +21,7 @@ void key_up(unsigned char key, int x, int y) {
 }
 
 void key_down(unsigned char key, int x, int y) {
-    std::cout << "key down " << key << std::endl;
+    printf("key down %c", key);
     graphics::Window::key_states[key] = true;
 }
 
@@ -40,11 +40,12 @@ int main(int argc, char** argv) {
     glutKeyboardFunc(key_down);
     glutKeyboardUpFunc(key_up);
 
-    Core core;
-    coreGlobal = &core;
+    Core* core = new Core();
+    coreGlobal = core;
 
     glutDisplayFunc(renderPipeline);
-    jthread main_thread([&core]() {
-        core.run();
+    jthread main_thread([=]() {
+        core->run();
     });
+
 }
