@@ -33,7 +33,7 @@ namespace graphics {
         std::unique_ptr<Vec2> position;
         std::unique_ptr<Color> color;
         int text_width = 0;
-        int text_height = glutBitmapHeight(GLUT_BITMAP_TIMES_ROMAN_24);
+        int text_height = glutBitmapHeight(GLUT_BITMAP_HELVETICA_18);
     };
 
     Text::Text(const std::string& text, std::unique_ptr<Vec2> position, std::unique_ptr<Color> color) {
@@ -41,7 +41,7 @@ namespace graphics {
         this->position = std::move(position);
         this->color = std::move(color);
         for (auto& c : this->text) {
-            this->text_width += glutBitmapWidth(GLUT_BITMAP_TIMES_ROMAN_24, c);
+            this->text_width += glutBitmapWidth(GLUT_BITMAP_HELVETICA_18, c);
         }
     }
 
@@ -49,15 +49,15 @@ namespace graphics {
         color->set();
         glRasterPos2f(position->x, position->y);
         for (auto& c : text) {
-            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, c);
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
         }
         glFlush();
     }
 
     void Text::center_in(const std::unique_ptr<Vec2>& start, const std::unique_ptr<Vec2>& end) {
         auto new_pos = std::make_unique<Vec2>(
-                (end->x + start->x) / 1.5f / 2 - (float) this->text_width / graphics::Window::WIDTH,
-                (end->y + start->y) / 2 - (float) this->text_height / graphics::Window::HEIGHT / 2
+                (end->x + start->x) / 1.5 / 2 - (double) this->text_width / graphics::Window::WIDTH,
+                (end->y + start->y) / 2 - (double) this->text_height / graphics::Window::HEIGHT / 2.
         );
         this->position = std::move(new_pos);
     }
