@@ -5,7 +5,6 @@
 #ifndef DISPLAY_FILEPICKER_H
 #define DISPLAY_FILEPICKER_H
 
-#include <memory>
 #include <vector>
 #include <cmath>
 #include <functional>
@@ -36,14 +35,14 @@ private:
 FilePicker::FilePicker() {
     for (int i = 0; i < 6; i++) {
         auto button = std::make_shared<Button>(
-                std::make_unique<Vec2>(0, 0),
+                Vec2(0, 0),
                 1.5, 0.4,
-                std::make_unique<Color>(0.3, 0.3, 0.3),
-                std::make_unique<Text>(
+                Color(0.3, 0.3, 0.3),
+                Text(
                         std::string(1,'0' + i),
-                        std::make_unique<Vec2>(0.0, 0.0),
-                        std::make_unique<Color>(1, 1, 1)
-                            ),
+                        Vec2(0.0, 0.0),
+                        Color(1, 1, 1)
+                ),
                 [this] { print_button(); }
         );
         _dw.push_back(button);
@@ -52,7 +51,7 @@ FilePicker::FilePicker() {
 }
 
 void FilePicker::update() {
-    if (counter % 6 == 0) {
+    if (counter % 12 == 0) {
         angle += angle_increment;
         if (angle == 60) angle = -75;
         int ctr = 1;
@@ -63,11 +62,11 @@ void FilePicker::update() {
             button->set_focused(false);
             if (fake_angle >= 60) fake_angle -= 135;
             if (fake_angle <= 7.5 && fake_angle >= -7.5) button->set_focused(true);
-            auto new_pos = std::make_unique<Vec2>(
-                     -1.5 - 0.7 + cos(fake_angle * M_PI / 180),
+            Vec2 new_pos(
+                    -1.5 - 0.7 + cos(fake_angle * M_PI / 180),
                     -0.2 + sin(fake_angle * M_PI / 180) * 1.5
             );
-            button->set_position(std::move(new_pos));
+            button->set_position(new_pos);
             ctr += 1;
         }
     }

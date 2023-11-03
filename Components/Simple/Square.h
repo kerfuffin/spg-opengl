@@ -14,28 +14,25 @@
 namespace graphics {
     class Square : public Drawable {
     public:
-        Square(Vec2 pos, float size, Color color);
+        Square(const Vec2& pos, float size, const Color& color);
         void draw() override;
 
-        void set_position(Vec2 vec2) { this->pos = vec2; }
+        void set_position(const Vec2& vec2) { this->pos = vec2; }
         void set_size(float size) { this->s = size; }
-        void set_color(Color color) { this->c = color; }
+        void set_color(const Color& color) { this->c = color; }
 
-        Vec2 get_position() { return this->pos; }
+        const Vec2& get_position() const { return this->pos; }
         float get_size() const { return this->s; }
-        Color get_color() { return this->c; }
+        const Color& get_color() const { return this->c; }
 
     private:
-        Vec2 pos = Vec2(0, 0);
+        Vec2 pos;
         float s;
-        Color c = Color(0, 0, 0);
+        Color c;
     };
 
-    Square::Square(Vec2 pos, float size, Color color) {
-        this->pos = pos;
-        this->s = size;
-        this->c = color;
-    }
+    Square::Square(const Vec2& pos, float size, const Color& color)
+            : pos(pos), s(size), c(color) {}
 
     void Square::draw() {
         c.set();
@@ -47,8 +44,6 @@ namespace graphics {
         glEnd();
         glFlush();
     }
-
-
 
 } // graphics
 
