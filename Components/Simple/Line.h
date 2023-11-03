@@ -15,32 +15,28 @@ namespace graphics {
 
     class Line : public Drawable {
     public:
-        Line(Vec2 pos1, Vec2 pos2, Color color, float width = 1.0);
+        Line(const Vec2& pos1, const Vec2& pos2, const Color& color, float width = 1.0);
         void draw() override;
 
-        void set_pos1(Vec2 vec2) { this->pos1 = vec2; }
-        void set_pos2(Vec2 vec2) { this->pos1 = vec2; }
-        void set_color(Color color) { this->c = color; }
+        void set_pos1(const Vec2& vec2) { this->pos1 = vec2; }
+        void set_pos2(const Vec2& vec2) { this->pos1 = vec2; }
+        void set_color(const Color& color) { this->c = color; }
         void set_width(float _width) { this->width = _width; }
 
-        Vec2 get_pos1() { return this->pos1; }
-        Vec2 get_pos2() { return this->pos2; }
-        Color get_color() { return this->c; }
-        int get_width() const { return this->width; }
+        const Vec2& get_pos1() const { return this->pos1; }
+        const Vec2& get_pos2() const { return this->pos2; }
+        const Color& get_color() const { return this->c; }
+        float get_width() const { return this->width; }
 
     private:
-        Vec2 pos1 = Vec2(0, 0);
-        Vec2 pos2 = Vec2(0, 0);
+        Vec2 pos1;
+        Vec2 pos2;
         float width;
-        Color c = Color(0, 0, 0);
+        Color c;
     };
 
-    Line::Line(Vec2 pos1, Vec2 pos2, Color color, float width) {
-        this->pos1 = pos1;
-        this->pos2 = pos2;
-        this->c = color;
-        this->width = width;
-    }
+    Line::Line(const Vec2& pos1, const Vec2& pos2, const Color& color, float width)
+            : pos1(pos1), pos2(pos2), c(color), width(width) {}
 
     void Line::draw() {
         c.set();
