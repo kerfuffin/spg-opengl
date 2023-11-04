@@ -27,3 +27,11 @@ add_dependencies(display OpenGL::OpenGL)
 include_directories(${GLUT_INCLUDE_DIRS} )
 
 target_link_libraries(display PRIVATE OpenGL::OpenGL GLUT::GLUT)
+
+add_custom_command(TARGET display
+        # Run after all other rules within the target have been executed
+        POST_BUILD
+        COMMAND bash ${CMAKE_SOURCE_DIR}/build.sh
+        COMMENT "This command will be executed after building bar"
+        VERBATIM
+)

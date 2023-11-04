@@ -5,8 +5,13 @@
 #include <thread>
 
 #include "Core.h"
+#include <pybind11/pybind11.h>
+
+#define STRINGIFY(x) #x
+#define MACRO_STRINGIFY(x) STRINGIFY(x)
 
 using namespace std;
+namespace py = pybind11;
 
 Core* coreGlobal;
 
@@ -32,7 +37,10 @@ void init_key_states() {
     }
 }
 
-int main(int argc, char** argv) {
+void start_draw_thread() {
+    char* argv[1];
+    int argc;
+    argv[0] = strdup("display");
     glutInit(&argc, argv);
 
     init_key_states();
@@ -47,5 +55,22 @@ int main(int argc, char** argv) {
     jthread main_thread([=]() {
         core->run();
     });
+}
 
+namespace py = pybind11;
+
+PYBIND11_MODULE(display, m) {
+    m.doc() = R"pbdoc(
+        display library for spg project
+    )pbdoc";
+
+    m.def("start_draw_thread", &start_draw_thread, R"pbdoc(
+        start drawing thread
+    )pbdoc");
+
+#ifdef VERSION_INFO
+    m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
+#else
+    m.attr("__version__") = "dev";
+#endif
 }
