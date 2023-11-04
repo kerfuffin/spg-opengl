@@ -6,8 +6,6 @@
 #define DISPLAY_BUTTON_H
 
 #include <functional>
-#include <memory>
-#include <utility>
 #include <GL/gl.h>
 #include "../../Abstracts/Drawable.h"
 #include "../../Structures/Color.h"
@@ -20,57 +18,49 @@ namespace graphics {
 
     class Button : public Drawable {
     public:
-        Button(std::unique_ptr<Vec2>&& pos, float width, float height, std::unique_ptr<Color> color, std::unique_ptr<Text> text, std::function<void()> callback);
+        Button(const Vec2& pos, float width, float height, const Color& color, const Text& text, std::function<void()> callback);
         void draw() override;
 
         void set_focused(bool focused);
-        void set_position(std::unique_ptr<Vec2> pos);
-        const std::unique_ptr<Vec2>& get_position();
+        void set_position(const Vec2& pos);
+        const Vec2& get_position();
     private:
-        std::unique_ptr<Rectangle> rectangle;
-        std::unique_ptr<Text> text;
+        Rectangle rectangle;
+        Text text;
         std::function<void()> callback;
-        std::unique_ptr<Color> color;
+        Color color;
         bool is_focused = false;
     };
 
-    Button::Button(std::unique_ptr<Vec2>&& pos, float width, float height, std::unique_ptr<Color> color, std::unique_ptr<Text> text, std::function<void()> callback) {
-        this->text = std::move(text);
-        this->text->center_in(pos, std::make_unique<Vec2>(pos->x + width, pos->y + height));
-        this->callback = std::move(callback);
-        this->rectangle = std::make_unique<Rectangle>(std::move(pos), width, height, std::move(color));
-        this->color = std::move(color);
+    Button::Button(const Vec2& pos, float width, float height, const Color& color, const Text& text, std::function<void()> callback)
+            : rectangle(pos, width, height, color), text(text), color(color), callback(std::move(callback)) {
+        this->text.center_in(pos, Vec2(pos.x + width, pos.y + height));
     }
 
     void Button::set_focused(bool focused) {
         this->is_focused = focused;
     }
 
-    const std::unique_ptr<Vec2>& Button::get_position() {
-        return this->rectangle->get_position();
+    const Vec2& Button::get_position() {
+        return this->rectangle.get_position();
     }
 
-    void Button::set_position(std::unique_ptr<Vec2> pos) {
-        this->text->center_in(pos, std::make_unique<Vec2>(
-                pos->x + this->rectangle->get_width(),
-                pos->y + this->rectangle->get_height()
-                ));
-        this->rectangle->set_position(std::move(pos));
+    void Button::set_position(const Vec2& pos) {
+        this->text.center_in(pos, Vec2(pos.x + this->rectangle.get_width(), pos.y + this->rectangle.get_height()));
+        this->rectangle.set_position(pos);
     }
 
     void Button::draw() {
         if (is_focused) {
-            rectangle->set_color(std::make_unique<Color>(0x42/255.f, 0x42/255.f, 0xdc/255.f));
+            rectangle.set_color(Color(0x42/255.f, 0x42/255.f, 0xdc/255.f));
             if (Window::key_states[13]) {
                 callback();
             }
         } else {
-            rectangle->set_color(
-                    std::make_unique<Color>(0x42/255.f, 0x42/255.f, 0x42/255.f)
-                    );
+            rectangle.set_color(Color(0x42/255.f, 0x42/255.f, 0x42/255.f));
         }
-        rectangle->draw();
-        text->draw();
+        rectangle.draw();
+        text.draw();
     }
 
 } // graphics
