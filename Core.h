@@ -11,6 +11,7 @@
 #include "Abstracts/Drawable.h"
 #include "Views/FilePicker.h"
 #include "Components/Simple/Text.h"
+#include "Views/FPSCounter.h"
 #include <chrono>
 
 class Core {
@@ -67,18 +68,18 @@ namespace{
 
 [[noreturn]] void Core::run() {
     auto* filePicker = new FilePicker();
+    auto* fpsCounter = new FPSCounter();
     add_drawable(filePicker);
+    add_drawable(fpsCounter);
     ::fn = [this](int val){
         update();
         draw();
     };
-    glutTimerFunc(1000/60, ::callback, 0);
-
-    while (true) {
+    ::callback(0);
+    while(true) {
         glutMainLoopEvent();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
     }
-
-    delete filePicker;
 }
 
 #endif //DISPLAY_CORE_H

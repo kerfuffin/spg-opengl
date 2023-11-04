@@ -10,6 +10,7 @@ add_executable(display main.cpp
         Structures/Color.h
         Structures/Vec2.h
         Views/FilePicker.h
+        Views/FPSCounter.h
         Abstracts/View.h
         Components/Simple/Text.h
         Components/Simple/Rectangle.h
