@@ -1,12 +1,10 @@
 #!/bin/bash
 
-RED='\033[1;31m'
+RED='\033[1;32m'
 NC='\033[0m'
 
-echo -e "${RED}Running cmake...${NC}"
-cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=ninja -G Ninja -S . -B cmake-build-debug
-
 echo -e "${RED}Building Python wheel...${NC}"
+cd ..
 python3 setup.py bdist_wheel
 
 echo -e "${RED}Installing Python wheel and upgrading packages...${NC}"
