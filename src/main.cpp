@@ -20,13 +20,11 @@ void renderPipeline() {
         coreGlobal->draw();
 }
 
-void key_up(unsigned char key, int x, int y) {
-    std::cout << "key up " << key << std::endl;
+void key_up(unsigned char key) {
     graphics::Window::key_states[key] = false;
 }
 
-void key_down(unsigned char key, int x, int y) {
-    printf("key down %c", key);
+void key_down(unsigned char key) {
     graphics::Window::key_states[key] = true;
 }
 
@@ -44,9 +42,6 @@ void start_draw_thread() {
     glutInit(&argc, argv);
 
     init_key_states();
-
-    glutKeyboardFunc(key_down);
-    glutKeyboardUpFunc(key_up);
 
     Core* core = new Core();
     coreGlobal = core;
@@ -73,6 +68,14 @@ PYBIND11_MODULE(display, m) {
         printf("%s", str.c_str());
     }, R"pbdoc(
         print string from cpp
+    )pbdoc");
+
+    m.def("handle_key_up", &key_up, R"pbdoc(
+        handle key up
+    )pbdoc");
+
+    m.def("handle_key_down", &key_down, R"pbdoc(
+        handle key down
     )pbdoc");
 
 #ifdef VERSION_INFO

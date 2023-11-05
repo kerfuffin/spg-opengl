@@ -30,6 +30,7 @@ private:
     float angle_increment = 7.5;
     int counter = 0;
     void print_button();
+    void rotate(int& ctr);
 };
 
 FilePicker::FilePicker() {
@@ -48,27 +49,33 @@ FilePicker::FilePicker() {
         _dw.push_back(button);
         _buttons.push_back(button);
     }
+    int ctr = 1;
+    rotate(ctr);
+}
+
+void FilePicker::rotate(int& ctr) {
+    for (auto& button : _buttons) {
+        float fake_angle = angle;
+
+        fake_angle += angle_increment * 3 * (float)ctr;
+        button->set_focused(false);
+        if (fake_angle >= 60) fake_angle -= 135;
+        if (fake_angle <= 7.5 && fake_angle >= -7.5) button->set_focused(true);
+        Vec2 new_pos(
+                -1.5 - 0.7 + cos(fake_angle * M_PI / 180),
+                -0.2 + sin(fake_angle * M_PI / 180) * 1.5
+        );
+        button->set_position(new_pos);
+        ctr += 1;
+    }
 }
 
 void FilePicker::update() {
-    if (counter % 12 == 0) {
+    if (graphics::Window::key_states[114] && counter % 4 == 0) {
         angle += angle_increment;
         if (angle == 60) angle = -75;
         int ctr = 1;
-        for (auto& button : _buttons) {
-            float fake_angle = angle;
-
-            fake_angle += angle_increment * 3 * (float)ctr;
-            button->set_focused(false);
-            if (fake_angle >= 60) fake_angle -= 135;
-            if (fake_angle <= 7.5 && fake_angle >= -7.5) button->set_focused(true);
-            Vec2 new_pos(
-                    -1.5 - 0.7 + cos(fake_angle * M_PI / 180),
-                    -0.2 + sin(fake_angle * M_PI / 180) * 1.5
-            );
-            button->set_position(new_pos);
-            ctr += 1;
-        }
+        rotate(ctr);
     }
     counter++;
 }
