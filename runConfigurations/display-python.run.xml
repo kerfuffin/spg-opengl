@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="display-python" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-c &quot;import display; display.start_draw_thread()&quot;" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://$PROJECT_DIR$/../python-test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="display" TARGET_NAME="display" CONFIG_NAME="Debug" RUN_PATH="$PROJECT_DIR$/../python-test/.venv/bin/python">
+  <configuration default="false" name="display-python" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="src/main.py" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://$PROJECT_DIR$/" PASS_PARENT_ENVS_2="true" PROJECT_NAME="display" TARGET_NAME="display" CONFIG_NAME="Debug" RUN_PATH="$PROJECT_DIR$/venv/bin/python">
     <method v="2">
       <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
     </method>
