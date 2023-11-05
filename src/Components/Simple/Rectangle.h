@@ -9,7 +9,7 @@
 #include "../../Abstracts/Drawable.h"
 #include "../../Structures/Color.h"
 #include "../../Structures/Vec2.h"
-#include "../../Window.h"
+#include "../../../Window.h"
 
 namespace graphics {
     class Rectangle : public Drawable {

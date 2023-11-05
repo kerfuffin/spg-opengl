@@ -12,7 +12,7 @@
 #include "../../Structures/Vec2.h"
 #include "../Simple/Text.h"
 #include "../Simple/Rectangle.h"
-#include "../../Window.h"
+#include "../../../Window.h"
 
 namespace graphics {
 

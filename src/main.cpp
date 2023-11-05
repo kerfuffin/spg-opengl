@@ -55,6 +55,7 @@ void start_draw_thread() {
     jthread main_thread([=]() {
         core->run();
     });
+    main_thread.detach();
 }
 
 namespace py = pybind11;
@@ -66,6 +67,12 @@ PYBIND11_MODULE(display, m) {
 
     m.def("start_draw_thread", &start_draw_thread, R"pbdoc(
         start drawing thread
+    )pbdoc");
+
+    m.def("print", [](const std::string& str){
+        printf("%s", str.c_str());
+    }, R"pbdoc(
+        print string from cpp
     )pbdoc");
 
 #ifdef VERSION_INFO

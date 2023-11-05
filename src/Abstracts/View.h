@@ -6,7 +6,7 @@
 #define DISPLAY_VIEW_H
 
 #include <GL/gl.h>
-#include "../Abstracts/Drawable.h"
+#include "Drawable.h"
 
 namespace graphics {
 

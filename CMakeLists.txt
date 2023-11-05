@@ -6,20 +6,20 @@ find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 find_package(GLUT REQUIRED)
 
 add_subdirectory(extern/pybind11)
-pybind11_add_module(display main.cpp
+pybind11_add_module(display src/main.cpp
         Window.h
-        Core.h
-        Abstracts/Drawable.h
-        Components/Simple/Square.h
-        Components/Simple/Line.h
-        Structures/Color.h
-        Structures/Vec2.h
-        Views/FilePicker.h
-        Views/FPSCounter.h
-        Abstracts/View.h
-        Components/Simple/Text.h
-        Components/Simple/Rectangle.h
-        Components/Complex/Button.h)
+        src/Core.h
+        src/Abstracts/Drawable.h
+        src/Components/Simple/Square.h
+        src/Components/Simple/Line.h
+        src/Structures/Color.h
+        src/Structures/Vec2.h
+        src/Views/FilePicker.h
+        src/Views/FPSCounter.h
+        src/Abstracts/View.h
+        src/Components/Simple/Text.h
+        src/Components/Simple/Rectangle.h
+        src/Components/Complex/Button.h)
 
 target_compile_definitions(display PRIVATE VERSION_INFO=${EXAMPLE_VERSION_INFO})
 

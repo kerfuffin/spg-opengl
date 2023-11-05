@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <memory>
-#include "Window.h"
+#include "../Window.h"
 #include "Abstracts/Drawable.h"
 #include "Views/FilePicker.h"
 #include "Components/Simple/Text.h"
