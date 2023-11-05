@@ -5,9 +5,6 @@ from threading import Thread
 from pynput import keyboard
 from pynput.keyboard import Key, Listener
 
-class SKey:
-    def __init__(self, val):
-        self.char = chr(val)
 
 keys_to_ascii = {
     keyboard.Key.space: 32,
@@ -43,14 +40,20 @@ def main():
 
 def on_press(key):
     if key in keys_to_ascii.keys():
-        key = SKey(keys_to_ascii[key])
+        key = keys_to_ascii[key]
     if key not in key_states.keys():
         key_states[key] = True
-        display.handle_key_down(ord(key.char))
+        if type(key) == int :
+            display.handle_key_down(key)
+        else:
+            display.handle_key_down(ord(key.char))
         print('{0} pressed'.format(
             key))
     if key_states[key] is False:
-        display.handle_key_down(ord(key.char))
+        if type(key) == int :
+            display.handle_key_down(key)
+        else:
+            display.handle_key_down(ord(key.char))
         print('{0} pressed'.format(
             key))
     key_states[key] = True
@@ -58,9 +61,12 @@ def on_press(key):
 
 def on_release(key):
     if key in keys_to_ascii.keys():
-        key = SKey(keys_to_ascii[key])
+        key = keys_to_ascii[key]
     key_states[key] = False
-    display.handle_key_up(ord(key.char))
+    if type(key) == int :
+        display.handle_key_up(key)
+    else:
+        display.handle_key_up(ord(key.char))
     print('{0} release'.format(
         key))
     if key == Key.esc:

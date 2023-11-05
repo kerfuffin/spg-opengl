@@ -30,6 +30,8 @@ namespace graphics {
         std::function<void()> callback;
         Color color;
         bool is_focused = false;
+        void click();
+        bool clicked = false;
     };
 
     Button::Button(const Vec2& pos, float width, float height, const Color& color, const Text& text, std::function<void()> callback)
@@ -53,15 +55,24 @@ namespace graphics {
     void Button::draw() {
         if (is_focused) {
             rectangle.set_color(Color(0x42/255.f, 0x42/255.f, 0xdc/255.f));
-            if (Window::key_states[13]) {
-                callback();
-            }
+            click();
         } else {
             rectangle.set_color(Color(0x42/255.f, 0x42/255.f, 0x42/255.f));
         }
         rectangle.draw();
         text.draw();
     }
+
+    void Button::click() {
+        if (Window::key_states[13] && !clicked) {
+            clicked = true;
+            callback();
+        }
+        if (!Window::key_states[13] && clicked) {
+            clicked = false;
+        }
+    }
+
 
 } // graphics
 
